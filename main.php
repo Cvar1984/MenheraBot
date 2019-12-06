@@ -41,7 +41,8 @@ while (true) {
     Google::search($msg['text']);
     ob_start();
     $x=0;
-    while(count(Google::$title) > $x) {
+    $count=count(Google::$title);
+    while($count > $x) {
         echo '['.Google::$title[$x].']('.Google::$link[$x].')'.PHP_EOL;
         $x++;
     }
@@ -57,4 +58,5 @@ while (true) {
 
     Telegram::writeFiles(json_encode($status, JSON_PRETTY_PRINT), 'status.json');
     unset($status);
+    sleep(5);
 }
