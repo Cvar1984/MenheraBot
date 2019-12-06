@@ -5,7 +5,7 @@ use Cvar1984\TelegramBot\Google;
 $lastUpdate=0;
 while (true) {
     $lastUpdate = Telegram::getUpdates($lastUpdate['update_id'] + 1);
-    $msg = Telegram::$lastUpdate['message'];
+    $msg = $lastUpdate['message'];
     if (empty($msg['text'])) {
         continue;
     } else {
@@ -39,15 +39,11 @@ while (true) {
         $data = json_encode($msg, JSON_PRETTY_PRINT);
         $status = null;
 
-        Google::search($msg['text']);
-        $x=0;
-        $count=count(Google::$title);
-        ob_start();
-        while($count >= $x) {
-            echo '['.Google::$title[$x].']('.Google::$link[$x].')'.PHP_EOL;
-            $x++;
-        }
-        $result=ob_get_clean();
+        $google=new Google();
+        $result = $google->search($msg['text']);
+
+        $result='['.$result[0].']('.$result[1].')'.PHP_EOL;
+        
         $status[]=Telegram::bot(
             'sendMessage',
             [
