@@ -1,0 +1,57 @@
+{
+
+  "name": "serps/core",
+  "description": "Search engine scrapper",
+  "type": "library",
+  "keywords": ["google", "yahoo", "bing", "search engine", "scrapper"],
+  "homepage": "https://github.com/serp-spider/core",
+  "license": "Fair",
+
+  "authors": [
+    {
+      "name": "Soufiane GHZAL",
+      "homepage": "https://github.com/gsouf"
+    }
+  ],
+
+  "autoload":{
+    "psr-4" : {
+      "Serps\\": "src/"
+    }
+  },
+
+  "autoload-dev":{
+    "psr-4": {
+      "Serps\\Test\\TDD\\": "test/suites/TDD"
+    }
+  },
+
+  "require": {
+    "php": ">=5.5",
+    "symfony/css-selector": "^2|^3|^4",
+    "psr/http-message": "^1.0.0"
+  },
+
+  "require-dev":{
+    "phpunit/phpunit": "~4.1",
+    "squizlabs/php_codesniffer": "~2.5",
+    "zendframework/zend-diactoros": "1.3.3",
+    "guzzlehttp/psr7": "^1.3.0"
+  },
+
+  "scripts": {
+    "phpunit": "test/bin/test.bash",
+    "test": [
+      "@phpunit",
+      "@cscheck"
+    ],
+    "csfix": "test/bin/phpcbf.bash",
+    "cscheck": "test/bin/phpcs.bash emacs"
+  },
+
+  "extra": {
+      "branch-alias": {
+          "dev-master": "0.3.0-dev"
+      }
+  }
+}

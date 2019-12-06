@@ -1,0 +1,26 @@
+{
+    "name": "cvar1984/serp",
+    "description": "telegram search engine",
+    "type": "application",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cvar1984",
+            "email": "gedzsarjuncomuniti@gmail.com"
+        }
+    ],
+    "require": {
+        "ext-curl": "*",
+        "ext-bz2": "*",
+        "serps/core": "^0.3.0",
+        "serps/search-engine-google": "^0.4.8",
+        "serps/http-client-curl": "^0.2.3",
+        "guzzlehttp/psr7": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cvar1984\\TelegramBot\\":"src/"
+        }
+    }
+}
