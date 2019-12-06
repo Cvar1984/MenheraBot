@@ -36,28 +36,24 @@ while (true) {
     Telegram::writeFiles($data, 'chat_logs.json');
 
     $data = json_encode($msg, JSON_PRETTY_PRINT);
-    $command  = strtolower($msg['text']);
-    $userName = $msg['from']['username'];
     $status = null;
 
-    if(preg_match('/^\/search/', $command)) {
-        Google::search(substr($command, 7));
-        $x=0;
-        ob_start();
-        while(count(Google::$title) > $x) {
-            echo '['.Google::$title[$x].']('.Google::$link[$x].')'.PHP_EOL;
-            $x++;
-        }
-        $result=ob_get_clean();
-        $status[]=Telegram::bot(
-            'sendMessage',
-            [
-                'chat_id' => $msg['chat']['id'],
-                'parse_mode'=>'markdown',
-                'text'=>"{$result}"
-            ]
-        );
+    Google::search($msg['text']);
+    ob_start();
+    $x=0;
+    while(count(Google::$title) > $x) {
+        echo '['.Google::$title[$x].']('.Google::$link[$x].')'.PHP_EOL;
+        $x++;
     }
+    $result=ob_get_clean();
+    $status[]=Telegram::bot(
+        'sendMessage',
+        [
+            'chat_id' => $msg['chat']['id'],
+            'parse_mode'=>'markdown',
+            'text'=>"{$result}"
+        ]
+    );
 
     Telegram::writeFiles(json_encode($status, JSON_PRETTY_PRINT), 'status.json');
     unset($status);
