@@ -58,5 +58,6 @@ while (true) {
 
     Telegram::writeFiles(json_encode($status, JSON_PRETTY_PRINT), 'status.json');
     unset($status, $result);
+    $result=null;
     sleep(5);
 }
