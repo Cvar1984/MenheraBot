@@ -2,8 +2,9 @@
 require __DIR__.'/vendor/autoload.php';
 use Cvar1984\TelegramBot\Telegram;
 use Cvar1984\TelegramBot\Google;
+$lastUpdate=0;
 while (true) {
-    Telegram::$lastUpdate = Telegram::getUpdates(Telegram::$lastUpdate['update_id'] + 1);
+    $lastUpdate = Telegram::getUpdates($lastUpdate['update_id'] + 1);
     $msg = Telegram::$lastUpdate['message'];
     if (empty($msg['text'])) {
         continue;
@@ -24,7 +25,7 @@ while (true) {
 
         $data = array(
             'username' => $msg['from']['username'],
-            'chat_title' => isset($msg['chat']['title']),
+            'chat_title' => $msg['chat']['title'],
             'chat_id' => $msg['chat']['id'],
             'name' => $msg['from']['first_name'],
             'username' => $msg['from']['username'],
@@ -39,10 +40,10 @@ while (true) {
         $status = null;
 
         Google::search($msg['text']);
-        ob_start();
         $x=0;
         $count=count(Google::$title);
-        while($count > $x) {
+        ob_start();
+        while($count >= $x) {
             echo '['.Google::$title[$x].']('.Google::$link[$x].')'.PHP_EOL;
             $x++;
         }
@@ -57,6 +58,6 @@ while (true) {
         );
 
         Telegram::writeFiles(json_encode($status, JSON_PRETTY_PRINT), 'status.json');
-        unset($status, $result);
+        unset($result, $status);
     }
 }

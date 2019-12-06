@@ -4,7 +4,6 @@ class Telegram
 {
     protected const BOT_TOKEN = '1061711210:AAEjnJT2GN6fDpZg9eJVLYFSL7RlHKxo7M4';
     public const USER_NAME = ['Cvar1984', 'E13371984'];
-    public static $lastUpdate = 0;
 
     function __construct()
     {
