@@ -10,8 +10,8 @@ class Google
 {
     protected static $userAgent = "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36";
     protected static $browserLanguage = "fr-FR";
-
-    public function search(string $dork)
+    public static $data;
+    public static function search(string $dork)
     {
         $browser = new Browser(new CurlClient(), self::$userAgent, self::$browserLanguage);
         $googleClient = new GoogleClient($browser);
@@ -20,10 +20,14 @@ class Google
         $response = $googleClient->query($googleUrl);
         $results = $response->getNaturalResults();
 
-        foreach ($results as $res) {
-            if ($res->is(NaturalResultType::CLASSICAL)) {
-                return array($res->title, $res->url);
+        ob_start();
+        foreach ($results as $result) {
+            if ($result->is(NaturalResultType::CLASSICAL)) {
+                echo "[{$result->title}]({$result->url})".PHP_EOL;
             }
         }
+        $data=ob_get_clean();
+        self::$data=$data;
+        unset($data);
     }
 }

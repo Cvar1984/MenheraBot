@@ -38,12 +38,9 @@ while (true) {
 
         $data = json_encode($msg, JSON_PRETTY_PRINT);
         $status = null;
+        Google::search($msg['text']);
 
-        $google=new Google();
-        $result = $google->search($msg['text']);
-
-        $result='['.$result[0].']('.$result[1].')'.PHP_EOL;
-        
+        $result=Google::$data;
         $status[]=Telegram::bot(
             'sendMessage',
             [
