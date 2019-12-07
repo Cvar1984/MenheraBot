@@ -45,7 +45,7 @@ while (true) {
             'sendMessage',
             [
                 'chat_id' => $msg['chat']['id'],
-                'parse_mode'=>'markdown',
+                'parse_mode'=>'html',
                 'text'=>$result
             ]
         );

@@ -12,13 +12,6 @@ class Google
     protected static $browserLanguage = "fr-FR";
     public static $data;
 
-    private static function markdown($markdown)
-    {
-        $markdown=str_replace('[', '\\[', $markdown);
-        $markdown=str_replace(']', '\\]', $markdown);
-        return $markdown;
-    }
-
     public static function search(string $dork)
     {
         $browser = new Browser(new CurlClient(), self::$userAgent, self::$browserLanguage);
@@ -30,16 +23,10 @@ class Google
 
         ob_start();
         foreach ($results as $result) {
-            if ($result->is(NaturalResultType::CLASSICAL)) {
-                
-                $result->title=self::markdown($result->title);
-                $result->url=self::markdown($result->url);
-
-                echo '['.$result->title.']('.$result->url.')'.PHP_EOL;
+            if ($result->is(NaturalResultType::CLASSICAL)) {    
+            echo '<a href=\''.$result->url.'\'>'.$result->title.'</a>'.PHP_EOL;
             }
         }
-        $data=ob_get_clean();
-        self::$data=$data;
-        unset($data);
+        self::$data=ob_get_clean();
     }
 }
