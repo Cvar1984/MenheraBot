@@ -23,7 +23,7 @@ class Google
         ob_start();
         foreach ($results as $result) {
             if ($result->is(NaturalResultType::CLASSICAL)) {
-                echo "[{$result->title}]({$result->url})".PHP_EOL;
+                echo '['.$result->title.']('.$result->url.')'.PHP_EOL;
             }
         }
         $data=ob_get_clean();
