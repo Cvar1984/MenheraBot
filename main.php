@@ -46,7 +46,7 @@ while (true) {
             [
                 'chat_id' => $msg['chat']['id'],
                 'parse_mode'=>'markdown',
-                'text'=>"$result"
+                'text'=>$result
             ]
         );
 
