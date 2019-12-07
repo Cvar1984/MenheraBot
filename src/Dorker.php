@@ -11,6 +11,16 @@ class Google
     protected static $userAgent = "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36";
     protected static $browserLanguage = "fr-FR";
     public static $data;
+
+    private static function markdown($markdown)
+    {
+        $markdown=str_replace('(', '\\(', $markdown);
+        $markdown=str_replace(')', '\\)', $markdown);
+        $markdown=str_replace('[', '\\[', $markdown);
+        $markdown=str_replace(']', '\\]', $markdown);
+        return $markdown;
+    }
+
     public static function search(string $dork)
     {
         $browser = new Browser(new CurlClient(), self::$userAgent, self::$browserLanguage);
@@ -23,12 +33,14 @@ class Google
         ob_start();
         foreach ($results as $result) {
             if ($result->is(NaturalResultType::CLASSICAL)) {
+                
+                $result->title=self::markdown($result->title);
+                $result->url=self::markdown($result->url);
+
                 echo '['.$result->title.']('.$result->url.')'.PHP_EOL;
             }
         }
         $data=ob_get_clean();
-        $data=addslashes($data);
-        self::$data=$data;
         unset($data);
     }
 }
