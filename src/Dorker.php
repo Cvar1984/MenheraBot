@@ -14,8 +14,6 @@ class Google
 
     private static function markdown($markdown)
     {
-        $markdown=str_replace('(', '\\(', $markdown);
-        $markdown=str_replace(')', '\\)', $markdown);
         $markdown=str_replace('[', '\\[', $markdown);
         $markdown=str_replace(']', '\\]', $markdown);
         return $markdown;
@@ -41,6 +39,7 @@ class Google
             }
         }
         $data=ob_get_clean();
+        self::$data=$data;
         unset($data);
     }
 }
