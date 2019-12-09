@@ -3,7 +3,7 @@ namespace Cvar1984\TelegramBot;
 class Telegram
 {
     protected const BOT_TOKEN = '1061711210:AAEjnJT2GN6fDpZg9eJVLYFSL7RlHKxo7M4';
-    public const USER_NAME = ['Cvar1984', 'E13371984'];
+    public const BOT_ADMIN = ['Cvar1984', 'E13371984'];
 
     function __construct()
     {
