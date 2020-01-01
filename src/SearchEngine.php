@@ -27,12 +27,12 @@ class SearchEngine
         ob_start();
         foreach ($result as $results) {
             if ($results->is(NaturalResultType::CLASSICAL)) {
-                echo '<a href=\'' .
-                    $results->url .
-                    '\'>' .
-                    $results->title .
-                    '</a>' .
-                    PHP_EOL;
+                echo '<a href=\''
+                    . $results->url
+                    . '\'>'
+                    . $results->title
+                    . '</a>'
+                    . PHP_EOL;
             }
         }
         return ob_get_clean();

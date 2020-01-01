@@ -7,7 +7,7 @@ $container = new Container();
 $app = new App($container);
 $container = $app->getContainer();
 $container['serps'] = function ($container) {
-    return new SearchEngine;
+    return new SearchEngine();
 };
 
 $app->post(

@@ -27,28 +27,29 @@ while (true) {
     );
 
     print_r($data);
-    $dataJson = json_encode(
-        $data,
-        JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
-    );
+    $dataJson = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     Telegram::writeFiles($dataJson, 'chat_logs.json');
     $htmlResult = SearchEngine::getHtml($msg['text']);
 
-    $status[] = Telegram::bot('sendMessage', [
-        'chat_id' => $data['chat_id'],
-        'parse_mode' => 'html',
-        'text' => $htmlResult
-    ]);
-
-    if (
-        substr($data['text'], 0, 6) == '/debug' &&
-        in_array($data['username'], Telegram::BOT_ADMIN)
-    ) {
-        $document = new CURLFile('status.json');
-        $status[] = Telegram::bot('sendDocument', [
+    $status[] = Telegram::bot(
+        'sendMessage',
+        [
             'chat_id' => $data['chat_id'],
-            'document' => $document
-        ]);
+            'parse_mode' => 'html',
+            'text' => $htmlResult
+        ]
+    );
+
+    if (substr($data['text'], 0, 6) == '/debug'
+        && in_array($data['username'], Telegram::BOT_ADMIN)) {
+        $document = new CURLFile('status.json');
+        $status[] = Telegram::bot(
+            'sendDocument',
+            [
+                'chat_id' => $data['chat_id'],
+                'document' => $document
+            ]
+        );
     }
 
     Telegram::writeFiles(
