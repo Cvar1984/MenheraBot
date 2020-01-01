@@ -1,5 +1,6 @@
 <?php
 namespace Cvar1984\TelegramBot;
+
 class Telegram
 {
     protected const BOT_TOKEN = '1061711210:AAEjnJT2GN6fDpZg9eJVLYFSL7RlHKxo7M4';
@@ -15,7 +16,11 @@ class Telegram
     public static function bot(string $method, array $datas = [])
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.telegram.org/bot' . self::BOT_TOKEN . '/' . $method);
+        curl_setopt(
+            $ch,
+            CURLOPT_URL,
+            'https://api.telegram.org/bot' . self::BOT_TOKEN . '/' . $method
+        );
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $datas);
